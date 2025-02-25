@@ -1,0 +1,43 @@
+# In the following requests the variable baseUrl is used.
+# Its value is set here.
+@baseUrl = http://localhost:4004/odata/v4
+
+### ------------------------------------------------------------------------
+# Get Service Document
+GET {{baseUrl}}/CatalogService/BusinessPartnerSet
+
+### ------------------------------------------------------------------------
+# Get Service Document
+GET {{baseUrl}}/CatalogService/POs
+
+### ------------------------------------------------------------------------
+# Get Service Document
+POST {{baseUrl}}/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC28052/boost
+Content-Type: application/json
+
+{}
+
+### ------------------------------------------------------------------------
+# Get Service Document
+GET {{baseUrl}}/CatalogService/$metadata
+
+### ------------------------------------------------------------------------
+# Get Service Document
+GET {{baseUrl}}/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2A052/getLargestOrder()
+
+### ------------------------------------------------------------------------
+# Get EmployeeSet
+GET {{baseUrl}}/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19787FB
+
+### ------------------------------------------------------------------------
+# Patch to Update Employee Data
+PATCH {{baseUrl}}/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19787FB
+Content-Type: application/json
+
+{
+    "salaryAmount": 99999999
+}
+
+### ------------------------------------------------------------------------
+# Get Data From Custom Service
+GET {{baseUrl}}/My/ProductOrdersSet/
