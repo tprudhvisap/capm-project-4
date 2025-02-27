@@ -1,0 +1,7 @@
+StatusCode,StatusText
+D, Delivered
+A, Approved
+P, Pending
+X, Rejected
+O, Open
+N, New

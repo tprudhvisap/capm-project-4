@@ -148,7 +148,7 @@ annotate service.POItems with @(
         },
         {
             $Type: 'UI.DataField',
-            Value: PARENT_KEY_NODE_KEY,
+            Value: PRODUCT_GUID_NODE_KEY,
         },
         {
             $Type: 'UI.DataField',
@@ -204,11 +204,6 @@ annotate service.POItems with @(
         },
         {
             $Type: 'UI.DataField',
-            Label: 'Parent Key',
-            Value: PARENT_KEY_NODE_KEY,
-        },
-        {
-            $Type: 'UI.DataField',
             Label: 'Node Key',
             Value: NODE_KEY,
         },
@@ -238,10 +233,53 @@ annotate service.POItems with @(
                 Value: CURRENCY_code,
             },
             {
-                $Type: 'UI.DataField',
-                Value: PRODUCT_GUID.DESCRIPTION,
-            },
-        ],
+            $Type: 'UI.DataField',
+            Label: 'Product Name',
+            Value: PRODUCT_GUID_NODE_KEY,
+        }]
     }
 );
+
+// Linking Value Help with POs
+annotate service.POs with {
+    PARTNER_GUID @(
+        Common.Text: PARTNER_GUID.COMPANY_NAME,
+        Common.ValueList.entity: service.BusinessPartnerSet
+        // Common.ValueList: {
+        //     Label: 'Vendor',
+        //     CollectionPath: 'BusinessPartnerSet'
+        // }
+)};
+
+
+// Create Value Help
+@cds.odata.valuelist
+annotate service.BusinessPartnerSet with @(
+    UI.Identification: [
+        {
+            $Type: 'UI.DataField',
+            Value: COMPANY_NAME
+        },
+    ]
+);
+
+// Linking Value Help with POs
+annotate service.POItems with {
+    PRODUCT_GUID @(
+        Common.Text: PRODUCT_GUID.DESCRIPTION,
+        Common.ValueList.entity: service.ProductSet
+)};
+
+// Create Value Help
+@cds.odata.valuelist
+annotate service.ProductSet with @(
+    UI.Identification: [
+        {
+            $Type: 'UI.DataField',
+            Value: DESCRIPTION
+        },
+    ]
+);
+
+
 
