@@ -32,4 +32,4 @@ aspect address{
     STREET: String(32);
     CITY: String(80);
     COUNTRY: String(3);
-}
+};

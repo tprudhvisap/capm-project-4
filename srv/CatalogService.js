@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { response } = require('express');
 module.exports = (srv) => {
     
     srv.on('boost',async (req) =>{
@@ -16,6 +17,10 @@ module.exports = (srv) => {
     }
     });
 
+    srv.on('getOrderStatus', async(req, response) =>{
+        return { "OVERALL_STATUS" : "N",}
+    });
+
     srv.on('getLargestOrder', async(req) => {
         const { POs } = srv.entities;
         const tx = cds.tx(req);
@@ -31,14 +36,21 @@ module.exports = (srv) => {
             console.log("Salary Amount: ", req.data.salaryAmount);
             req.error(500, "Salary Cannot Be More than 99999999");
         }
-    })
+    });
+
+    
 };
 
 // OLD Style of Coding
 // module.exports = cds.service.impl(async function(){    
-//     this.on('boost',async(req)=>{
-//         return{
-//             "NODE_KEY": "Dummy"
-//         };
+//     // this.on('boost',async(req)=>{
+//     //     return{
+//     //         "NODE_KEY": "Dummy"
+//     //     };
+//     // });
+//     this.on('getOrderStatus', async(req, response) => {
+//         return {
+//             "OVERALL_STATUS" : "N"
+//         }
 //     });
 // });

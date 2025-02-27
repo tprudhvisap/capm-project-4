@@ -6,7 +6,11 @@ service CatalogService @(path:'CatalogService') {
     entity AddressSet as projection on master.address;
     entity EmployeeSet as projection on master.employees;
     entity ProductSet as projection on master.product;
-    entity POs as projection on transaction.purchaseorder{
+    function getOrderStatus() returns POs;
+    entity POs @( 
+        odata.draft.enabled: true,
+        Common.DefaultValuesFunction: 'getOrderStatus'
+    )as projection on transaction.purchaseorder{
         *,
         case OVERALL_STATUS 
             when 'D' then 'Delivered'
@@ -21,7 +25,7 @@ service CatalogService @(path:'CatalogService') {
             when 'P' then 2
             when 'X' then 3
             when 'O' then 3
-            when 'N' then 0 end as ColorCoding: String(10),
+            when 'N' then 3 end as ColorCoding: String(10),
         // Items,
 
     } actions{
